@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyrics Search</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="landingPage" class="landing-container">
+        <div class="landing-bg-pattern">
+            <i class="fa-solid fa-music note-1"></i>
+            <i class="fa-solid fa-guitar note-2"></i>
+            <i class="fa-solid fa-drum note-3"></i>
+            <i class="fa-solid fa-compact-disc note-4"></i>
+            <i class="fa-solid fa-headphones note-5"></i>
+            <i class="fa-solid fa-microphone note-6"></i>
+        </div>
+        <div class="landing-content">
+            <h1 class="landing-title">NEO<br>LYRICS</h1>
+            <div class="landing-card">
+                <p>Sing Loud. Sing Proud.</p>
+                <p>Welcome to HANZCODE Universe</p>
+                <button id="enterBtn" class="btn-yellow start-btn">START LISTENING <i class="fa-solid fa-play"></i></button>
+            </div>
+            <div class="marquee-container">
+                <div class="marquee-text">MUSIC • LIFESTYLE • LYRICS • HANZCODE • VIBES • MUSIC • LIFESTYLE • LYRICS •</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mainApp" class="app-container hidden">
+        
+        <div id="sidebarOverlay" class="sidebar-overlay hidden">
+            <div class="sidebar-content">
+                <div class="sidebar-header">
+                    <h3>MENU</h3>
+                    <button onclick="toggleSidebar()" class="close-sidebar"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h4><i class="fa-solid fa-code"></i> Developer Credit</h4>
+                    <div class="credit-box">
+                        <p>Created by</p>
+                        <h3>HANZZ CODEE</h3>
+                        <a href="https://saweria.co/hanzreally" target="_blank" class="dev-link">
+                            Support HANZCODE
+                        </a>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h4><i class="fa-solid fa-star"></i> Web Recommendations</h4>
+                    <ul class="rec-list">
+                        <li><a href="https://qurandigital-id.vercel.app/" target="_blank">BACA AL-QUR'AN <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+                        <li><a href="https://wibukon-web.vercel.app/" target="_blank">NONTON ANIME <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+                        <li><a href="https://webdonghua.netlify.app/" target="_blank">NONTON DONGHUA <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+                        <li><a href="https://hanzmusictesting.vercel.app/" target="_blank">DENGERIN MUSIC <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+                        <li><a href="https://mediadownn.vercel.app/" target="_blank">MEDIA DOWNLOADER <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+                        <li><a href="https://startv-swart.vercel.app/" target="_blank">NONTON TV <i class="fa-solid fa-arrow-up-right-from-square"></i></a></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-footer">
+                    <p>Lyrics Search v2.0</p>
+                    <p>© 2026 HANZCODE</p>
+                </div>
+            </div>
+        </div>
+
+        <header class="app-header">
+            <div class="header-content"> 
+                <div class="profile-card">
+                    <div class="avatar">
+                        <img src="dev.png" alt="Developer" class="real-avatar">
+                    </div>
+                    <div class="user-info">
+                        <h3>Lyrics Search </h3>
+                        <p>BY HANZCODE</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="menu-btn" onclick="toggleSidebar()">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div id="searchView" class="view-section">
+            <div class="search-container">
+                <div class="search-wrapper-limit"> 
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                        <input type="text" id="searchInput" placeholder="Search song title...">
+                        <button id="searchBtn" class="action-btn">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <main class="content-area">
+              <div class="content-limit"> 
+                <div id="welcomeState" class="state-card">
+                        <h2>Find Lyrics</h2>
+                        <p>Search for your favorite songs!</p>
+                        <div class="stats-row">
+                            <div class="stat-box">
+                                <span class="num">1M+</span>
+                                <span class="label">Songs</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="num">Fast</span>
+                                <span class="label">Speed</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="loadingState" class="hidden">
+                        <div class="loader">Loading...</div>
+                    </div>
+
+                    <div id="resultsList" class="results-container hidden">
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <div id="playlistView" class="view-section hidden">
+            <main class="content-area">
+                <div class="content-limit">
+                    <div class="playlist-header">
+                        <h2><i class="fa-solid fa-heart"></i> My Playlist</h2>
+                        <p>Saved lyrics from local storage</p>
+                    </div>
+                    <div id="playlistContainer" class="results-container">
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <div id="lyricsOverlay" class="overlay hidden">
+            <div class="lyrics-card">
+                <div class="lyrics-top-actions">
+                    <button class="icon-btn fav-btn" id="toggleFavBtn" onclick="toggleFavoriteCurrent()">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                    <button class="close-btn" onclick="closeLyrics()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                
+                <div class="lyrics-header-section">
+                    <div class="lyrics-meta-full">
+                        <h2 id="songTitle">Title</h2>
+                        <h4 id="artistName">Artist</h4>
+                    </div>
+                </div>
+                
+                <hr>
+                <pre id="lyricsContent">Lyrics go here...</pre>
+                <button class="btn-yellow" onclick="closeLyrics()">Close Lyrics</button>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <div class="nav-item active" id="navSearch" onclick="switchTab('search')"><i class="fa-solid fa-medal"></i> Search</div>
+            <div class="nav-item" id="navPlaylist" onclick="switchTab('playlist')"><i class="fa-solid fa-list-music"></i> Playlist</div>
+        </nav>
+        
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
